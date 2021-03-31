@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Taskmate</title>
+{% endblock title %}
+
+{% block content %}
+	<br>
+  <div class="container">  
+	{% for message in messages %}
+		<div class="alert alert-primary alert-dismissible fade show" role="alert">
+			{{message}}
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+	<form method="post">
+		{% csrf_token %}
+		<div class="mb-3">
+			<label for="addTask" class="form-label">Add New Task:</label>
+			<input type="text" class="form-control" id="addTask" name="task">
+		</div>
+		<div class="mb-3">
+    	<button type="submit" class="btn btn-primary ">Add</button>
+  	</div>
+	</form>
+	<br>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Task</th>
+                <th scope="col">Done</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in all %}
+							{% if obj.done%}
+								<tr class="table-success">
+									<th>{{obj.task}} </th>
+									<td> Completed </td>
+									<td><a href=" {% url 'edit_task' obj.id %} " class="btn btn-warning">Edit</a></td>
+									<td><a href=" {% url 'delete_task' obj.id %} " class="btn btn-danger">Delete</a></td>
+								</tr>
+							{% else %}
+								<tr>
+									<th> {{obj.task}} </th>
+									<td> Not Completed </td>
+									<td><a href=" {% url 'edit_task' obj.id %} " class="btn btn-warning">Edit</a></td>
+									<td><a href="delete/{{obj.id}}" class="btn btn-danger">Delete</a></td>
+								</tr>
+							{% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+  </div> 
+{% endblock content %}
