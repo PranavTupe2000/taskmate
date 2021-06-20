@@ -38,14 +38,14 @@
 							{% if obj.done%}
 								<tr class="table-success">
 									<th>{{obj.task}} </th>
-									<td> Completed </td>
+									<td> <a href="{% url 'pending_task' obj.id %}" class="btn btn-info">Mark This Pending</a> </td>
 									<td><a href=" {% url 'edit_task' obj.id %} " class="btn btn-warning">Edit</a></td>
 									<td><a href=" {% url 'delete_task' obj.id %} " class="btn btn-danger">Delete</a></td>
 								</tr>
 							{% else %}
 								<tr>
 									<th> {{obj.task}} </th>
-									<td> Not Completed </td>
+									<td> <a href="{% url 'complete_task' obj.id %}" class="btn btn-success">Mark This Completed</a> </td>
 									<td><a href=" {% url 'edit_task' obj.id %} " class="btn btn-warning">Edit</a></td>
 									<td><a href="delete/{{obj.id}}" class="btn btn-danger">Delete</a></td>
 								</tr>
